@@ -6,8 +6,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
-)
+  #(last (butlast %)))
 
 (defn -main []
   (are [x] x
