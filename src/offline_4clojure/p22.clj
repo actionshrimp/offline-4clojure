@@ -6,7 +6,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  #(reduce + (map (fn [& a] 1)  %1))
 )
 
 (defn -main []
