@@ -6,7 +6,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (partial reduce (fn [a b] (into a (list b))) ())
 )
 
 (defn -main []
