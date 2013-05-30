@@ -6,16 +6,10 @@
   (:use clojure.test))
 
 (def __
-  (let [calc-next (fn [current] 
-               (let [len (count current)]
-                 (cond
-                   (or (= 0 len) (= 1 len)) 1
-                   :else (apply + (take 2 current)))))
-        iter (fn [f cnt acc]
-               (cond 
-                 (= cnt 0) (reverse acc)
-                 :else (f f (- cnt 1) (cons (calc-next acc) acc))))]
-    (fn [x] (iter iter x ())))
+  (letfn [(fib [x] (cond (= x 1) 1
+                         (= x 2) 1
+                         :else (+ (fib (- x 1)) (fib (- x 2)))))]
+    #(map fib (range 1 (+ % 1))))
 )
 
 (defn -main []
