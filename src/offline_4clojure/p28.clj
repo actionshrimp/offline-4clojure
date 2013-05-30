@@ -6,7 +6,12 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (letfn [(f [acc s] (reduce g acc s))
+          (g [acc item]
+              (cond
+                (sequential? item) (f acc item)
+                :else (cons item acc)))] 
+    #(reverse (f () %)))
 )
 
 (defn -main []
