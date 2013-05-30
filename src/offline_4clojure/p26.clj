@@ -6,7 +6,16 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (let [calc-next (fn [current] 
+               (let [len (count current)]
+                 (cond
+                   (or (= 0 len) (= 1 len)) 1
+                   :else (apply + (take 2 current)))))
+        iter (fn [f cnt acc]
+               (cond 
+                 (= cnt 0) (reverse acc)
+                 :else (f f (- cnt 1) (cons (calc-next acc) acc))))]
+    (fn [x] (iter iter x ())))
 )
 
 (defn -main []
