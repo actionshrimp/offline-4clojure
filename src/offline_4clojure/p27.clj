@@ -7,7 +7,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  #(= (seq %) (reverse %))
 )
 
 (defn -main []
