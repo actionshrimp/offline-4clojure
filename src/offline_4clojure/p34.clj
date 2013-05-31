@@ -6,7 +6,12 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [start end]
+    (letfn [(f [acc x]
+              (if (= x end)
+                acc
+                (f (cons x acc) (+ x 1))))]
+      (reverse (f () start))))
 )
 
 (defn -main []
