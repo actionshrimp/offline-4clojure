@@ -6,12 +6,14 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
-)
+  #(reduce (fn [acc x] (if (= (last acc) x) 
+                        acc 
+                        (concat acc (list x))))
+          () %))
 
-(defn -main []
-  (are [x] x
-(= (apply str (__ "Leeeeeerrroyyy")) "Leroy")
-(= (__ [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
-(= (__ [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
-))
+  (defn -main []
+    (are [x] x
+         (= (apply str (__ "Leeeeeerrroyyy")) "Leroy")
+         (= (__ [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
+         (= (__ [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
+         ))
