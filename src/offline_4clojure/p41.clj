@@ -6,7 +6,10 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+#(map second
+      (filter 
+        (partial apply (fn [i el] (not (= 0 (mod (+ 1 i) %2))))) 
+        (map-indexed (fn [a b] (list a b)) %1)))
 )
 
 (defn -main []

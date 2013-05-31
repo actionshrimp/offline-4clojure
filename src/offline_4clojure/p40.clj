@@ -6,7 +6,8 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [sep xs]
+    (concat (list (first xs)) (mapcat #(list sep %) (rest xs))))
 )
 
 (defn -main []
