@@ -6,11 +6,7 @@
   (:use clojure.test))
 
 (def __
-  (letfn [(iter [acc a b]
-           (if (and (not (empty? a)) (not (empty? b)))
-             (iter (concat acc (list (first a) (first b))) (rest a) (rest b))
-             acc))]
-    #(iter () %1 %2))
+  (partial mapcat list)
 )
 
 (defn -main []
