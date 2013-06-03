@@ -6,7 +6,8 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [x]
+    (reduce (fn [a b] (* a b)) 1 (range 1 (+ x 1))))
 )
 
 (defn -main []
