@@ -6,7 +6,19 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [coll cnt]
+    (let [mapped (map-indexed (fn [i v] [(mod i cnt) v]) coll)
+          base-acc (repeat cnt ())]
+      (reduce 
+        (fn [acc x] 
+          (let [index (first x)
+                value (last x)
+                start (take index acc)
+                trgt (nth acc index)
+                updated (concat trgt (list value))
+                end (drop (+ 1 index) acc)]
+           (concat start (list updated) end))) 
+        base-acc mapped)))
 )
 
 (defn -main []
