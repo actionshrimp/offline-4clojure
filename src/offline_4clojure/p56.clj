@@ -6,7 +6,12 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  #(reduce (fn [acc x]
+            (if (some #{x} acc)
+              acc
+              (concat acc (list x))))
+          ()
+          %)
 )
 
 (defn -main []
