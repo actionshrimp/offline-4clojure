@@ -6,7 +6,10 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [unmoddedcnt col]
+    (let [cnt (mod unmoddedcnt (count col))]
+    (cond (>= cnt 0) (let [split (split-at cnt col)] (concat (second split) (first split)))
+          :else (let [split (split-at (+ (count col) cnt) col)] (concat (second split) (first split))))))
 )
 
 (defn -main []
