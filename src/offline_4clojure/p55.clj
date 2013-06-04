@@ -6,7 +6,10 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  #(reduce
+    (fn [acc v]
+      (update-in acc [v] (fnil inc 0)))
+    {} %)
 )
 
 (defn -main []

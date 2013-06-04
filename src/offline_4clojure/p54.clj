@@ -6,7 +6,13 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [cnt col]
+    (let [partitioned (reduce 
+                        (fn [acc v] (if (< (count (last acc)) cnt)
+                                      (concat (butlast acc) (list (concat (last acc) (list v))))
+                                      (concat acc (list (list v))))) 
+                        '(()) col)]
+      (filter #(= cnt (count %)) partitioned)))
 )
 
 (defn -main []
