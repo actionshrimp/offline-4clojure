@@ -6,7 +6,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [f] #(f %2 %1))
 )
 
 (defn -main []
