@@ -6,7 +6,9 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [col]
+    (let [dict (reduce (fn [d v] (update-in d [(type v)] (fn [col] (if (nil? col) [v] (concat col (list v)))))) {} col)]
+      (set (vals dict))))
 )
 
 (defn -main []
