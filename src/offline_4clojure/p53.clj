@@ -6,7 +6,18 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [col]
+    (let [partitioned (reduce 
+                        (fn [acc v] 
+                          (if (or (empty? acc) (not (= v (+ 1 (last (last acc))))))
+                            (concat acc (list (list v)))
+                            (concat (butlast acc) (list (concat (last acc) (list v))))))
+                        ()
+                        col)]
+      (let [sorted (reverse (sort-by count partitioned))]
+        (if (> (count (first sorted)) (count (second sorted)))
+          (first sorted)
+          ()))))
 )
 
 (defn -main []
