@@ -6,7 +6,9 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [& fns]
+    (fn [& args]
+      (map #(apply % args) fns)))
 )
 
 (defn -main []
