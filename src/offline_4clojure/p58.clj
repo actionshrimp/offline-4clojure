@@ -6,7 +6,9 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [& fns]
+    (fn [& args]
+      (first (reduce (fn [new-args f] (list (apply f new-args))) args (reverse fns)))))
 )
 
 (defn -main []
