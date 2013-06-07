@@ -6,7 +6,12 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [f & args]
+    (let [start (if (= 2 (count args)) (first args) (first (first args)))
+          targets (if (= 2 (count args)) (second args) (rest (first args)))]
+      (letfn [(get-next [current targets]
+        (if (empty? targets) () (cons current (lazy-seq (get-next (f current (first targets)) (rest targets))))))])
+      (get-next start targets)))
 )
 
 (defn -main []
