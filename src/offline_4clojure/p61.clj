@@ -6,7 +6,8 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [ks vs]
+    (reduce conj {} (map #(hash-map %1 %2) ks vs)))
 )
 
 (defn -main []
