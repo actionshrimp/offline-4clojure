@@ -6,7 +6,8 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn it [f v]
+    (cons v (lazy-seq (it f (f v)))))
 )
 
 (defn -main []
