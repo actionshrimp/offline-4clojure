@@ -7,7 +7,11 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn primes [n]
+    (take n 
+          (filter 
+            (fn [i] (not-any? #(= 0 (mod i %)) (range 2 i))) 
+            (drop 2 (range)))))
 )
 
 (defn -main []
@@ -16,3 +20,5 @@
 (= (__ 5) [2 3 5 7 11])
 (= (last (__ 100)) 541)
 ))
+
+(-main)
