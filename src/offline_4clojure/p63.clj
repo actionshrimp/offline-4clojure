@@ -6,7 +6,10 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [f s]
+    (reduce 
+      #(merge-with concat %1 (hash-map (f %2) [%2]))
+      {} s))
 )
 
 (defn -main []
