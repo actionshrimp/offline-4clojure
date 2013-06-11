@@ -6,7 +6,14 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [f & args]
+    (letfn [(merge-args [acc v]
+              (reduce #(if 
+                         (contains? %1 %2)
+                         (assoc %1 %2 (f (get %1 %2) (get v %2)))
+                         (assoc %1 %2 (get v %2))) 
+                      acc (keys v)))]
+      (reduce merge-args (first args) (rest args))))
 )
 
 (defn -main []
@@ -18,3 +25,5 @@
 (= (__ concat {:a [3], :b [6]} {:a [4 5], :c [8 9]} {:b [7]})
    {:a [3 4 5], :b [6 7], :c [8 9]})
 ))
+
+(-main)
