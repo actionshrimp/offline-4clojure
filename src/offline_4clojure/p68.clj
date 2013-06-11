@@ -6,15 +6,13 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  [7 6 5 4 3]
 )
 
-(defn -main []
-  (are [x] x
 (= __
   (loop [x 5
          result []]
-    (if (> x 0)
+    (if (= x 0)
+      result
       (recur (dec x) (conj result (+ 2 x)))
-      result)))
-))
+      )))
