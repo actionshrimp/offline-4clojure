@@ -6,9 +6,8 @@
 (ns offline-4clojure.p66
   (:use clojure.test))
 
-(def __
-;; your solution here
-)
+(def __ 
+  (fn gcd [a b] (if (= b 0) a (gcd b (mod a b)))))
 
 (defn -main []
   (are [x] x
