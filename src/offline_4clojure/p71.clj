@@ -5,9 +5,7 @@
 (ns offline-4clojure.p71
   (:use clojure.test))
 
-(def __
-;; your solution here
-)
+(def __ last)
 
 (defn -main []
   (are [x] x
