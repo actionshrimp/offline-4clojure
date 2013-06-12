@@ -6,8 +6,14 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
-)
+  (fn [x]
+    (cond 
+      (= (count x) (count (conj x {}))) :map
+      (= (+ 1 (count x)) (count (conj x :a :a))) :set
+      (= :a (last (conj x :b :a))) :vector
+      :else :list
+      ))
+  )
 
 (defn -main []
   (are [x] x
@@ -17,3 +23,5 @@
 (= :set (__ #{10 (rand-int 5)}))
 (= [:map :set :vector :list] (map __ [{} #{} [] ()]))
 ))
+
+(-main)
