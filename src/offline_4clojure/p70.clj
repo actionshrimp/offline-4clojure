@@ -6,15 +6,15 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [st]
+    (sort-by clojure.string/lower-case (re-seq #"\w+" st)))
 )
 
-(defn -main []
-  (are [x] x
-(= (__  "Have a nice day.")
-   ["a" "day" "Have" "nice"])
-(= (__  "Clojure is a fun language!")
-   ["a" "Clojure" "fun" "is" "language"])
-(= (__  "Fools fall for foolish follies.")
-   ["fall" "follies" "foolish" "Fools" "for"])
-))
+(are [x] x
+     (= (__  "Have a nice day.")
+        ["a" "day" "Have" "nice"])
+     (= (__  "Clojure is a fun language!")
+        ["a" "Clojure" "fun" "is" "language"])
+     (= (__  "Fools fall for foolish follies.")
+        ["fall" "follies" "foolish" "Fools" "for"])
+     )
