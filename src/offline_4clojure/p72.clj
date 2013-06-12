@@ -5,9 +5,7 @@
 (ns offline-4clojure.p72
   (:use clojure.test))
 
-(def __
-;; your solution here
-)
+(def __ (partial apply +))
 
 (defn -main []
   (are [x] x
@@ -15,3 +13,5 @@
    (->> [2 5 4 1 3 6] (drop 2) (take 3) (map inc) (__))
    11)
 ))
+
+(-main)
