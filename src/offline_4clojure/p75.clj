@@ -6,13 +6,21 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
-)
+  (fn [x]
+    (let [gcd (fn f [a b]
+                (if (= 0 b) a (f b (mod a b))))]
+      (->> (range 0 x)
+           (map (partial gcd x))
+           (filter (partial = 1))
+           (count))))
+  )
 
 (defn -main []
   (are [x] x
-(= (__ 1) 1)
-(= (__ 10) (count '(1 3 7 9)) 4)
-(= (__ 40) 16)
-(= (__ 99) 60)
-))
+       (= (__ 1) 1)
+       (= (__ 10) (count '(1 3 7 9)) 4)
+       (= (__ 40) 16)
+       (= (__ 99) 60)
+       ))
+
+(-main)
