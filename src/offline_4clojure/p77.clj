@@ -6,13 +6,21 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
-)
+  (fn [words] 
+    (letfn [(is-anagram? [a b]
+              (and (= (count a) (count b))
+                   (= (frequencies a) (frequencies b))))
+            (anagrams [a]
+              (set (get (group-by #(is-anagram? a %) words) true)))]
+      (set (filter #(> (count %) 1) (set (map anagrams words)))))) 
+  )
 
 (defn -main []
   (are [x] x
-(= (__ ["meat" "mat" "team" "mate" "eat"])
-   #{#{"meat" "team" "mate"}})
-(= (__ ["veer" "lake" "item" "kale" "mite" "ever"])
-   #{#{"veer" "ever"} #{"lake" "kale"} #{"mite" "item"}})
-))
+       (= (__ ["meat" "mat" "team" "mate" "eat"])
+          #{#{"meat" "team" "mate"}})
+       (= (__ ["veer" "lake" "item" "kale" "mite" "ever"])
+          #{#{"veer" "ever"} #{"lake" "kale"} #{"mite" "item"}})
+       ))
+
+(-main)
