@@ -5,9 +5,10 @@
 (ns offline-4clojure.p78
   (:use clojure.test))
 
-(def __
-;; your solution here
-)
+(def __ 
+  (fn trmp [f & args]
+    (loop [f? (apply f args)]
+      (if  (fn? f?) (recur (f?)) f?))))
 
 (defn -main []
   (are [x] x
