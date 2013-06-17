@@ -6,8 +6,12 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [x]
+    (letfn [(divisors [x]
+              (filter #(= 0 (mod x %)) (range 1 x)))]
+      (= x (apply + (divisors x)))))
 )
+
 
 (defn -main []
   (are [x] x
@@ -17,3 +21,5 @@
 (= (__ 500) false)
 (= (__ 8128) true)
 ))
+
+(-main)
