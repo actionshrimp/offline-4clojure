@@ -6,7 +6,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [a b] (reduce #(if (a %2) (conj %1 %2) %1) #{} b))
 )
 
 (defn -main []
@@ -15,3 +15,5 @@
 (= (__ #{0 1 2} #{3 4 5}) #{})
 (= (__ #{:a :b :c :d} #{:c :e :a :f :d}) #{:a :c :d})
 ))
+
+(-main)
