@@ -8,15 +8,29 @@
 (def __
   (fn [words]
     (letfn [(w-o [s el]
-              (clojure.set/difference s #{el}))
-            (attempt [start remaining]
-              (if (empty? remaining)
+              (filter #(not (= el %)) s))
+            (one-letter-different? [a b]
+              (letfn [(differ [[a & as] [b & bs] single-diff?]
+                        (if (and (nil? a) (nil? b))
+                          single-diff?
+                          (if (= a b)
+                            (differ as bs single-diff?)
+                            (if single-diff?
+                              false
+                              (or (differ as (cons b bs) true)
+                                  (differ (cons a as) bs true)
+                                  (differ as bs true))))))]
+                (differ a b false)))
+            (check-potentials [potentials others]
+              (if (empty? potentials)
+                false
+                (not (nil? (some #(can-form-chain? % (w-o others %)) potentials)))))
+            (can-form-chain? [target others]
+              (if (empty? others)
                 true
-                (let [potentials (filter (partial one-letter-different? start) remaining)]
-                  (if (empty? potentials)
-                    false
-                    (some identity (map #(attempt % (w-o potentials %)) potentials))))))]
-      (some identity (map #(attempt % (w-o words %)) words))))
+                (let [potentials (filter #(one-letter-different? target %) others)]
+                  (check-potentials potentials others))))]
+      (check-potentials words words)))
 )
 
 (defn -main []
@@ -29,18 +43,16 @@
 (= false (__ #{"share" "hares" "hare" "are"}))
 ))
 
-(-main)
 
-            ((defn one-letter-different? [a b]
-              (let [fa (frequencies a)
-                    fb (frequencies b)
-                    differ (fn [acc [letter to-sub]]
-                             (let [do-sub (fnil (fn [old-count] (- old-count to-sub)) 0)]
-                               (update-in acc [letter] do-sub))) 
-                    diff (reduce differ fa fb)
-                    diff-vals (vals diff)
-                    absed-vals (map #(if (< % 0) (-%) %) diff-vals)
-                    diff-vals-sum (apply + diff-vals)
-                    absed-vals-sum (apply + absed-vals)]
-                (and (or (= 1 diff-vals-sum) (= 0 diff-vals-sum))
-                     (or (= 1 absed-vals-sum) (= 2 absed-vals-sum))))) "hello" "hellor")
+
+;(defn -main []
+;  (are [x] x
+;       (= false (one-letter-different? "hello" "hello"))
+;       (= true (one-letter-different? "hello" "hellr"))
+;       (= true (one-letter-different? "hello" "hell"))
+;       (= true (one-letter-different? "hello" "helo"))
+;       (= true (one-letter-different? "hello" "helloo"))
+;       (= true (one-letter-different? "hello" "helloz"))
+;       (= false (one-letter-different? "hello" "helloze"))
+;       (= false (one-letter-different? "hello" "hlo"))
+;       (= false (one-letter-different? "hello" "ehlo"))))
