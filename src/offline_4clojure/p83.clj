@@ -6,7 +6,9 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [& args]
+    (and (not (nil? (some identity args)))
+         (not (every? identity args))))
 )
 
 (defn -main []
@@ -18,3 +20,5 @@
 (= false (__ true true true))
 (= true (__ true true true false))
 ))
+
+(-main)
