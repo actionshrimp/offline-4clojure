@@ -6,7 +6,13 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [s] 
+    (letfn [(f [xs] 
+              (apply concat (map (fn [x] (map #(conj x %) s)) xs)))] 
+      (take-while (fn [i] 
+                    (not-any? #(>= (count %) (count s)) i))
+      ;(take 5
+        (iterate f [#{}]))))
 )
 
 (defn -main []
@@ -17,3 +23,5 @@
    #{#{} #{1} #{2} #{3} #{1 2} #{1 3} #{2 3} #{1 2 3}})
 (= (count (__ (into #{} (range 10)))) 1024)
 ))
+
+(-main)
