@@ -6,7 +6,14 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [s]
+    (letfn [(joiner [a b] (if (= (second a) (first b)) [(first a) (second b)] nil))
+            (iterator [x]
+              (let [iteration (map #(keep identity (map (partial joiner %) s)) x)] 
+                (apply concat (filter (comp not empty?) iteration))))
+            (relations [x] 
+              (apply concat (take-while (comp not empty?) (iterate iterator [x]))))]
+       (set (apply concat (map relations s)))))
 )
 
 (defn -main []
@@ -24,3 +31,5 @@
      #{["father" "son"] ["father" "grandson"]
        ["uncle" "cousin"] ["son" "grandson"]}))
 ))
+
+(-main)
