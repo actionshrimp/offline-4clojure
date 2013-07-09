@@ -6,7 +6,19 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [n]
+    (letfn [(iter [hist i]
+              (cond
+                (= 1 i) true
+                (some #{i} hist) false
+                :else (let [new-hist (conj hist i)
+                            j (->> (str i) 
+                                   (map str) 
+                                   (map #(Integer/valueOf %))
+                                   (map #(* % %))
+                                   (apply +))]
+                        (iter new-hist j))))]
+      (iter [] n)))
 )
 
 (defn -main []
