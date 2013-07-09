@@ -6,13 +6,16 @@
   (:use clojure.test))
 
 (def __
-  (fn [s] 
-    (letfn [(f [xs] 
-              (apply concat (map (fn [x] (map #(conj x %) s)) xs)))] 
-      (take-while (fn [i] 
-                    (not-any? #(>= (count %) (count s)) i))
-      ;(take 5
-        (iterate f [#{}]))))
+  (fn [s]
+    (letfn [(g [y]
+              (map (partial conj y) s))
+            (f [x] 
+              (set (mapcat g x)))
+            (not-found [x]
+              (not (some final-length x)))
+            (final-length [x]
+              (= (count x) (count s)))]
+      (conj (first (drop-while not-found (iterate f #{#{}}))) #{})))
 )
 
 (defn -main []
