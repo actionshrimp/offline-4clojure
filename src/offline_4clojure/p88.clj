@@ -6,7 +6,9 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [a b] 
+    (let [diff (fn [x y] (filter #(not (y %)) x))]
+      (set (concat (diff a b) (diff b a)))))
 )
 
 (defn -main []
