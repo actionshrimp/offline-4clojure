@@ -6,7 +6,34 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [edge-vecs]
+    (let [all-edges (map set edge-vecs)
+          path-freq #(frequencies (map set %))
+          tour-freqs (frequencies all-edges)
+          tour? (fn [path] (= (path-freq path) tour-freqs))
+          step (fn [path]
+                 (let [path-freqs (path-freq path)
+                       required-edge (fn [edge] 
+                                       (< (path-freqs edge 0)
+                                          (tour-freqs edge)))
+                       required-edges (set (filter required-edge all-edges))
+                       current-node (last (last path))
+                       allowed-edge (fn [edge] (edge current-node))
+                       allowed-edges (filter allowed-edge required-edges)
+                       next-node (fn [edge] (if (= 1 (count edge))
+                                              (first edge)
+                                              (first (filter (partial not= current-node) edge))))]
+                   (map #(conj path [current-node (next-node %)]) allowed-edges)))
+          starting-paths (set (mapcat
+                                #(vector [[(first %) (second %)]] [[(second %) (first %)]])
+                                edge-vecs))]
+      (loop [paths starting-paths]
+        (if (some tour? paths)
+          true
+          (let [stepped-paths (set (mapcat step paths))]
+            (if (= paths stepped-paths)
+              false
+              (recur stepped-paths)))))))
 )
 
 (defn -main []
