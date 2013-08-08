@@ -7,7 +7,23 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [edges]
+    (let [all-nodes (set (mapcat identity edges))
+          neighbours (fn [node]
+                        (letfn [(get-neighbour [edge]
+                                  (cond
+                                    (= node (first edge)) (second edge)
+                                    (= node (second edge)) (first edge)
+                                    :else nil))]
+                       (filter identity (map get-neighbour edges))))
+          step (fn [visited]
+                 (set (concat visited (mapcat neighbours visited))))]
+      (loop [visited (into #{} (first edges))]
+        (let [stepped (step visited)] 
+          (cond
+            (= all-nodes stepped) true
+            (= visited stepped) false
+            :else (recur stepped))))))
 )
 
 (defn -main []
