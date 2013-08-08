@@ -8,7 +8,16 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [numer-str] 
+    (let [values {\I 1, \V 5, \X 10, \L 50, \C 100, \D 500, \M 1000 }]
+      (loop [acc 0
+             s numer-str]
+        (if (= (count s) 0) acc
+          (let [current (values (first s))
+                nxt (values (second s) 0)]
+            (if (> nxt current)
+              (recur (+ acc (- nxt current)) (drop 2 s))
+              (recur (+ acc current) (rest s))))))))
 )
 
 (defn -main []
