@@ -6,7 +6,8 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn f [s]
+    (if (some coll? s) (mapcat f s) (list s)))
 )
 
 (defn -main []
