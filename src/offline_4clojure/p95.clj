@@ -6,7 +6,12 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn is-tree? [node]
+    (or (nil? node)
+        (and (coll? node)
+             (= (count node) 3)
+             (is-tree? (nth node 1))
+             (is-tree? (nth node 2)))))
 )
 
 (defn -main []
