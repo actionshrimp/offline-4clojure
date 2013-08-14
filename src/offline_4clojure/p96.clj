@@ -6,7 +6,16 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn symmetric? [tree]
+    (let [value #(nth % 0)
+          left #(nth % 1)
+          right #(nth % 2)
+          flatten-tree (fn flatten-tree [tree]
+                         (if (nil? tree) [nil]
+                           (concat (flatten-tree (left tree)) 
+                                   [(value tree)] 
+                                   (flatten-tree (right tree)))))]
+      (= (flatten-tree (left tree)) (reverse (flatten-tree (right tree))))))
 )
 
 (defn -main []
