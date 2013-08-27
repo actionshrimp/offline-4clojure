@@ -6,7 +6,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  #(set (map set (vals (group-by %1 %2)))) 
 )
 
 (defn -main []
