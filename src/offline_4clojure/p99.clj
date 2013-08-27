@@ -6,7 +6,8 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  #(map (fn [x] (Integer/parseInt x)) (map str (str (* %1 %2))))
+  
 )
 
 (defn -main []
