@@ -9,7 +9,17 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn pascal-row [n]
+    (cond (= n 1) [1]
+          (= n 2) [1 1]
+          :else (concat
+                  [1] 
+                  (let [prev-row (pascal-row (- n 1))]
+                    (reduce #(concat (butlast %1)
+                                     [(+ (last %1) %2)]
+                                     [%2])
+                      [(first prev-row)]
+                      (rest prev-row))))))
 )
 
 (defn -main []
