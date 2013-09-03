@@ -6,7 +6,17 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [a b]
+    (let [worker (fn [lev a b]
+                   (cond (nil? a) (count b)
+                         (nil? b) (count a)
+                         :else
+                         (let [cost (if (= (last a) (last b)) 0 1)]
+                           (min (+ (lev lev (butlast a) b) 1)
+                                (+ (lev lev a (butlast b)) 1)
+                                (+ (lev lev (butlast a) (butlast b)) cost)))))
+          lev (memoize worker)]
+      (lev lev a b)))
 )
 
 (defn -main []
