@@ -6,7 +6,14 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [w] 
+    (apply str
+           (reduce 
+             (fn [acc x]
+               (if (= \- (last acc))
+                 (conj (vec (butlast acc)) (Character/toUpperCase x))
+                 (conj acc x)))
+             [] w)))
 )
 
 (defn -main []
