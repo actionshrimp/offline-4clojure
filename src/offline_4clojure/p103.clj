@@ -8,7 +8,16 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn f [k xs]
+    (cond 
+      (= k 0) #{#{}}
+      (empty? xs) #{}
+      :else (letfn [(g [i] 
+                      (let [k' (- k 1)
+                            xs' (disj xs i)
+                            iter (f k' xs')]
+                        (map #(set (conj % i)) iter)))]
+              (set (mapcat g xs)))))
 )
 
 (defn -main []
