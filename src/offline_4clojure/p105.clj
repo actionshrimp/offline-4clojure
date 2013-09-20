@@ -6,7 +6,11 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [xs]
+    (reduce #(if (keyword? %2)
+                 (assoc %1 %2 [])
+                 (assoc %1 (first (last %1)) (conj (second (last %1)) %2)))
+            (sorted-map) xs))
 )
 
 (defn -main []
