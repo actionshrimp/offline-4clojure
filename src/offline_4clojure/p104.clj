@@ -6,7 +6,18 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [n] 
+    (apply str ((fn roman [n]
+      (if (> n 0)
+        (let [values [[1000 "M"], [900 "CM"], [500 "D"],
+                      [400 "CD"], [100 "C"], [90 "XC"],
+                      [50 "L"], [40 "XL"], [10 "X"],
+                      [9 "IX"], [5 "V"], [4 "IV"], [1 "I"]]
+              to-remove (first (filter #(>= n (first %)) values))
+              m (first to-remove)
+              c (second to-remove)]
+          (concat c (roman (- n m))))
+        ())) n)))
 )
 
 (defn -main []
