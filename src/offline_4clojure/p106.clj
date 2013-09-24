@@ -6,12 +6,21 @@
 ;
 ;Find the shortest path through the "maze". Because there are multiple shortest paths, you must return the length of the shortest path, not the path itself.
 ; tags - numbers
-; restricted - 
+; restricted -
 (ns offline-4clojure.p106
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [start target]
+    (let [iter-one (fn [i] (concat
+                             [(* i 2) (+ i 2)]
+                             (if (even? i) [(/ i 2)] [])))
+          iter #(set (mapcat iter-one %))
+          search (fn [n working-set]
+                   (if (working-set target)
+                     n
+                     (recur (+ n 1) (iter working-set))))]
+      (search 1 #{start})))
 )
 
 (defn -main []
