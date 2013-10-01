@@ -8,7 +8,7 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [n] (fn [x] (int (Math/pow x n))))
 )
 
 (defn -main []
