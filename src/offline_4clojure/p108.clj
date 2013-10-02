@@ -6,7 +6,10 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn smallest-in-each [x & xs]
+    (let [has-elem? (fn [a s] (= a (first (drop-while #(< % a) s))))
+          f (fn [a] (every? #(has-elem? a %) xs))]
+      (first (filter f x))))
 )
 
 (defn -main []
