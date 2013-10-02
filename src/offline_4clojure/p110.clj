@@ -6,7 +6,12 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (let [step (fn [xs] 
+               (mapcat #(vector (count %) (first %)) 
+                       (partition-by identity xs)))]
+    (fn f [xs] 
+      (let [stepped (step xs)]
+       (lazy-seq (cons stepped (f stepped))))))
 )
 
 (defn -main []
