@@ -10,3 +10,4 @@ pom.xml
 .lein-plugins
 *.swp
 .lein-repl-history
+.nrepl-port
