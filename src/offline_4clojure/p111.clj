@@ -23,7 +23,17 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+(fn [w board]
+  (let [board-rows (map #(.replaceAll % " " "") board)
+        board-cols (map (partial apply str) (apply (partial map list) board-rows))
+        possibilities (->> (mapcat (partial partition-by #(= \# %)) (concat board-rows board-cols))
+                           (filter #(not= '(\#) %))
+                           (map (partial apply str))
+                           (map #(.replaceAll % "_" "."))
+                           (map re-pattern))]
+    ((complement nil?) (some #(re-matches % w) possibilities))
+    )
+  )
 )
 
 (defn -main []
@@ -40,6 +50,6 @@
                     "r _ _ #"]))
 (= true  (__ "clojure" ["_ _ _ # j o y"
                         "_ _ o _ _ _ _"
-                        "_ _ f _ # _ _"]))
+                        "_ _ f _ # _ _"]))))
 
-))
+(-main)
