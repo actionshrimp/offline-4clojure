@@ -6,7 +6,20 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+(fn [i xs]
+  (:ys
+    ((fn f 
+       ([i xs] (f i xs {:total 0 :ys []}))
+       ([i [x & xs] acc] 
+        (if-not (nil? x)
+          (if-not (sequential? x)
+            (if-not (> x i)
+              (recur (- i x) xs {:total (+ (acc :total) x) :ys (conj (acc :ys) x)})
+              acc)
+            (let [sub (f i x)]
+              (recur (- i (sub :total)) xs {:total (+ (acc :total) (sub :total)) :ys (conj (acc :ys) (sub :ys))})))
+          acc)))
+     i xs)))
 )
 
 (defn -main []
@@ -26,3 +39,5 @@
 (=  (__ 1 [-10 [1 [2 3 [4 5 [6 7 [8]]]]]])
    '(-10 (1 (2 3 (4)))))
 ))
+
+(-main)
