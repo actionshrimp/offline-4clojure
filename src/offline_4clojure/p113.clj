@@ -6,8 +6,15 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+(fn [& args]
+  (reify clojure.lang.Seqable
+    (toString [this] 
+      (clojure.string/join ", " (sort args)))
+    (seq [this] 
+      (seq (distinct args)))))
 )
+
+(clojure.string/join ", " [1 2 3])
 
 (defn -main []
   (are [x] x
@@ -19,3 +26,5 @@
 (and (= nil (seq (__)))
      (=  "" (str (__))))
 ))
+
+(-main)
