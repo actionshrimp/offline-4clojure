@@ -12,7 +12,15 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [n p xs]
+    (butlast
+      ((reduce
+         #(if (< (%1 :m) n)
+            (if (p %2) 
+              {:m (+ 1 (%1 :m)) :ys (conj (%1 :ys) %2)}
+              (assoc %1 :ys (conj (%1 :ys) %2)))
+            %1)
+         {:m 0 :ys []} xs) :ys)))
 )
 
 (defn -main []
@@ -27,3 +35,5 @@
    (__ 1 #{"a"}
          ["this" "is" "a" "sentence" "i" "wrote"]))
 ))
+
+(-main)
