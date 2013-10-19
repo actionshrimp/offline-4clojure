@@ -9,8 +9,23 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
-)
+  (fn [x]
+    (letfn [(is-prime [x] 
+              (and (> x 1)
+                   (not (some #(= 0 (mod (/ x %) 1)) 
+                              (range 2 (+ 1 (/ x 2)))))))
+            (prime-after [x]
+              (first (filter is-prime (iterate inc (+ 1 x)))))
+            (prime-before [x]
+              (first (filter is-prime (take-while #(> % 2) (iterate dec (- x 1)))))) ]
+      (and 
+        (is-prime x)
+        (not (nil? (prime-before x)))
+        (= x (/ 
+               (+ (prime-before x) (prime-after x))
+               2))))))
+
+;(map #(vector % (__ %)) (range 50))
 
 (defn -main []
   (are [x] x
@@ -18,3 +33,5 @@
 (= true (__ 563))
 (= 1103 (nth (filter __ (range)) 15))
 ))
+
+(-main)
