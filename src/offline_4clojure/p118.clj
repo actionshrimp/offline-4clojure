@@ -6,7 +6,10 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn g [f [x & xs]]
+    (lazy-seq (cons 
+                (f x) 
+                (if xs (g f xs)))))
 )
 
 (defn -main []
@@ -20,3 +23,5 @@
         (drop (dec 1000000))
         (take 2)))
 ))
+
+(-main)
