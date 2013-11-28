@@ -8,7 +8,26 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [p b]
+    (let [all-moves #{[0 0] [0 1] [0 2] [1 0] [1 1] [1 2] [2 0] [2 1] [2 2]} 
+          allowed? #(= :e (get-in b %))
+          new-board-for #(assoc-in b % p)
+          are-all-p #(= [p p p] %)
+          as-cols #(apply (partial map vector) %)
+          pieces-at (fn [b coords] (map #(get-in b %) coords))
+          has-winning-row? #(some are-all-p %)
+          has-winning-col? #(some are-all-p (as-cols %))
+          has-winning-diagonal? #(or (are-all-p (pieces-at % [[0 0] [1 1] [2 2]]))
+                                     (are-all-p (pieces-at % [[0 2] [1 1] [2 0]])))
+          winning? #(some identity
+                      ((juxt
+                         has-winning-row?
+                         has-winning-col?
+                         has-winning-diagonal?)
+                       (new-board-for %)))]
+      (set 
+        (filter winning? 
+                (filter allowed? all-moves)))))
 )
 
 (defn -main []
