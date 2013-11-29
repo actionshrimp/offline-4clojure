@@ -6,7 +6,10 @@
   (:use clojure.test))
 
 (def __
-;; your solution here
+  (fn [xs]
+    (let [digits (fn [x] (map #(Integer/parseInt (str %)) (str x)))
+          sss (fn [x] (< x (apply + (map #(* % %) (digits x)))))]
+      (count (filter sss xs)))) 
 )
 
 (defn -main []
