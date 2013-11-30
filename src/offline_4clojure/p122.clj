@@ -5,9 +5,15 @@
 (ns offline-4clojure.p122
   (:use clojure.test))
 
-(def __
-;; your solution here
-)
+(def __ 
+  (fn [x]
+    (loop [x x acc 0]
+      (if (empty? x) acc
+        (recur (rest x)
+               (if (= \1 (first x))
+                      (+ (int (Math/pow 2 (count (rest x)))) acc)
+                      acc)))))
+  )
 
 (defn -main []
   (are [x] x
