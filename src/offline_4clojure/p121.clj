@@ -1,5 +1,5 @@
 ; Universal Computation Engine - Medium
-; 	 Given a mathematical formula in prefix notation, return a function that calculates
+;	 Given a mathematical formula in prefix notation, return a function that calculates
 ;	 the value of the formula.
 ;	 The formula can contain nested calculations using the four basic
 ;	 mathematical operators, numeric constants, and symbols representing variables.
@@ -17,8 +17,13 @@
       (let [replace-syms (fn f [x] 
                            (if (sequential? x)
                              (map f x)
-                             (if (values x) (values x) x)))]
-        (eval (map replace-syms expr)))))
+                             (if (values x) (values x) x)))
+            my-resolve #(case % / / * * + + - -)
+            my-eval (fn g [[f & args]]
+                      (->> args
+                           (map #(if (sequential? %) (g %) %))
+                           (apply (my-resolve f))))]
+        (my-eval (map replace-syms expr)))))
 )
 
 (defn -main []
